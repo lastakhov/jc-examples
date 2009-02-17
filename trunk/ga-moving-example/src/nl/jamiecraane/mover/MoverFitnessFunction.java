@@ -33,7 +33,7 @@ public class MoverFitnessFunction extends FitnessFunction {
 		int numberOfVansNeeded = 1;
 		for (int i = 0; i < boxes.length; i++) {
 			int index = (Integer) a_subject.getGene(i).getAllele();
-			if ((sizeInVan + this.boxes[index].getVolume()) < vanCapacity) {
+			if ((sizeInVan + this.boxes[index].getVolume()) <= vanCapacity) {
 				sizeInVan += this.boxes[index].getVolume();
 			} else {
 				// Compute the difference
