@@ -51,6 +51,9 @@
             <fileset dir="${basedir}">
                 <include name="src/**/*.java"/>
             </fileset>
+            <fileset dir="${basedir}">
+                <include name="docs/*.txt"/>
+            </fileset>
         </zip>
     </target>
 </project>
