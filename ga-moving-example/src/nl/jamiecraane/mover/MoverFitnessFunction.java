@@ -35,7 +35,7 @@ public class MoverFitnessFunction extends FitnessFunction {
         Gene[] genes = a_subject.getGenes();
         for (Gene gene : genes) {
             int index = (Integer) gene.getAllele();
-            if (enoughSpaceEvailable(volumeInCurrentVan, this.boxes[index])) {
+            if (enoughSpaceAvailable(volumeInCurrentVan, this.boxes[index])) {
 				volumeInCurrentVan += this.boxes[index].getVolume();
 			} else {
 				numberOfVansNeeded++;
@@ -48,7 +48,7 @@ public class MoverFitnessFunction extends FitnessFunction {
 		return wastedVolume * numberOfVansNeeded;
     }
 
-    private boolean enoughSpaceEvailable(double volumeInVan, Box box) {
+    private boolean enoughSpaceAvailable(double volumeInVan, Box box) {
         return (volumeInVan + box.getVolume()) <= this.vanCapacity;
     }
 }

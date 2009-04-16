@@ -35,7 +35,7 @@ public class MoverExample {
 	// No need to have this much evolutions but we do want the optimal solution at the cost of cpu
 	private static final int NUMBER_OF_EVOLUTIONS = 5000;
 	// The amount of boxes used to move things from one location to the other. The number of boxes determines the number of genes.
-	private static final int NUMBER_OF_BOXES = 125;
+	private static final int NUMBER_OF_BOXES = 20;
 	// The volume of the vans in cubic meters
 	private static final double VOLUME_OF_VANS = 4.33;
 	
@@ -137,7 +137,8 @@ public class MoverExample {
 		
 		double previousFittest = a_genotype.getFittestChromosome().getFitnessValue();
 		int numberOfVansNeeded = Integer.MAX_VALUE;
-		for (int i = 0; i < NUMBER_OF_EVOLUTIONS; i++) {
+        long startTime = System.currentTimeMillis();
+        for (int i = 0; i < NUMBER_OF_EVOLUTIONS; i++) {
 			if (i % 250 == 0) {
 				LOG.info("Number of evolutions [" + i + "]");
 			}
@@ -155,7 +156,9 @@ public class MoverExample {
 				break;
 			}
 		}
-		IChromosome fittest = a_genotype.getFittestChromosome();
+        long endTime = System.currentTimeMillis();
+        System.out.println("computation time = " + (endTime - startTime));
+        IChromosome fittest = a_genotype.getFittestChromosome();
 
         List<Van> vans = numberOfVansNeeded(fittest.getGenes());
         printVans(vans);
