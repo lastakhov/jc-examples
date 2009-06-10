@@ -1,0 +1,66 @@
+<project name="ga-moving-example" default="compile" basedir=".">
+    <property file="build.properties"/>
+
+    <property name="app.name" value="melody-composition"/>
+    <property name="build.home" value="${basedir}/build"/>
+    <property name="dist.home" value="${basedir}/dist"/>
+    <property name="src.dir" value="${basedir}/src"/>
+
+    <property name="compile.debug" value="true"/>
+    <property name="compile.deprecation" value="false"/>
+    <property name="compile.optimize" value="true"/>
+
+    <path id="classpath">
+        <fileset dir="${basedir}/../libs">
+            <include name="**/*.jar"/>
+        </fileset>
+    </path>
+
+    <target name="clean"
+            description="Delete old build and dist directories">
+        <delete dir="${build.home}"/>
+        <delete dir="${dist.home}"/>
+    </target>
+
+    <target name="compile"
+            description="Compile Java sources">
+
+        <!-- Compile Java classes as necessary -->
+        <mkdir dir="${build.home}/bin/classes"/>
+        <javac srcdir="${src.dir}"
+               destdir="${build.home}/bin/classes"
+               debug="${compile.debug}"
+               deprecation="${compile.deprecation}"
+               optimize="${compile.optimize}"
+               source="1.5"
+               classpathref="classpath">
+        </javac>
+
+        <copy todir="${build.home}/bin/classes">
+            <fileset dir="${src.dir}">
+                <include name="**/*.groovy"/>
+            </fileset>
+        </copy>
+    </target>
+
+    <target name="dist" depends="clean,compile"
+            description="Create binary distribution">
+        <mkdir dir="${dist.home}"/>
+
+        <zip zipfile="${dist.home}/${app.name}-${app.version}.zip">
+            <fileset dir="${build.home}/bin">
+                <include name="**/*.class"/>
+                <include name="**/*.groovy"/>
+            </fileset>
+            <fileset dir="${basedir}/../">
+                <include name="libs/*.jar"/>
+            </fileset>
+            <fileset dir="${basedir}">
+                <include name="src/**/*.java"/>
+            </fileset>
+            <fileset dir="${basedir}">
+                <include name="docs/*.txt"/>
+            </fileset>
+        </zip>
+    </target>
+</project>
