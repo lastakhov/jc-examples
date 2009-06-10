@@ -57,6 +57,7 @@
             </fileset>
             <fileset dir="${basedir}">
                 <include name="src/**/*.java"/>
+                <include name="src/**/*.groovy"/>
             </fileset>
             <fileset dir="${basedir}">
                 <include name="docs/*.txt"/>
