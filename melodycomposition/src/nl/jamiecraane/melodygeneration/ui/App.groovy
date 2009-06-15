@@ -93,6 +93,7 @@ def generateMelody = {
 actionPanel = swing.panel(layout: new MigLayout()) {
     generateButton = button(text: "Generate",
 			actionPerformed: {
+                myProgressBar.maximum = Integer.parseInt(numberOfEvolutionsField.text) - 1
                 generateButton.enabled = false
                 saveButton.enabled = false
                 playButton.enabled = false
@@ -127,7 +128,7 @@ actionPanel = swing.panel(layout: new MigLayout()) {
             }
         }
     )
-    myProgressBar = progressBar(minimum: 0, maximum: Integer.parseInt(numberOfEvolutionsField.text) - 1, value: 0)
+    myProgressBar = progressBar(minimum: 0, value: 0)
 }
 
 frame = swing.frame(title:"app", size:[1100,800], windowClosing: {System.exit(0)}, layout: new MigLayout()) {	
