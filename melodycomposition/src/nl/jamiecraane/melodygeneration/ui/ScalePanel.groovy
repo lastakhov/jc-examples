@@ -29,17 +29,6 @@ public final class ScalePanel extends JPanel {
             buttonGroup.add(radioButton);
 			scalePanel.add(radioButton);
 		}
-		JPanel scaleTypePanel = new JPanel(new GridLayout(1,4));
-		scaleTypePanel.setBorder(BorderFactory.createTitledBorder("Select scale type"));
-		List types = ["MAJOR", "MINOR", "MELODIC MINOR", "HARMONIC MINOR"];
-		ButtonGroup buttonGroupType = new ButtonGroup();
-		types.each {
-			JRadioButton typeButton = new JRadioButton(it);
-			buttonGroupType.add(typeButton);
-			scaleTypePanel.add(typeButton);
-		}
-		
 		this.add(scalePanel);
-		this.add(scaleTypePanel);
 	}
 }
