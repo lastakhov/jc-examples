@@ -11,6 +11,7 @@ import org.jgap.impl.IntegerGene;
 import org.apache.log4j.Logger;
 
 import javax.sound.midi.*;
+import javax.swing.*;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -21,6 +22,12 @@ public class MelodyGeneratorMain {
     private static final int MAXIMUM_OCTAVE = 7;
     private static final int NUMBER_OF_EVOLUTIONS = 250;
     private static final int NUMBER_OF_NOTES = 24;
+    private JProgressBar progressBar;
+    private IChromosome fittestChromosome;
+
+    public void setProgressBar(JProgressBar progressBar) {
+        this.progressBar = progressBar;
+    }
 
     public MelodyGeneratorMain() {
     }
@@ -87,14 +94,56 @@ public class MelodyGeneratorMain {
         return this.setupGenoType(fitnessFunctionBuilder.build(), NUMBER_OF_NOTES);
     }
 
+    public void play() throws InvalidMidiDataException, MidiUnavailableException {
+        Sequence sequence = generateMidiSequence();
+        this.playSequence(sequence);
+    }
+
+    public void save(String path) {
+        Sequence sequence = null;
+        try {
+            sequence = generateMidiSequence();
+        } catch (InvalidMidiDataException e) {
+            e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+        }
+        this.writeSequenceToMidiFile(sequence, path);
+    }
+
+    private Sequence generateMidiSequence() throws InvalidMidiDataException {
+        Sequence sequence = new Sequence(Sequence.PPQ, 4);
+        Track track = sequence.createTrack();
+
+        long ticks = 0;
+        for (Gene gene : this.fittestChromosome.getGenes()) {
+            CompositeGene note = (CompositeGene) gene;
+            Duration duration = Duration.getByIndex((Integer) note.geneAt(2).getAllele());
+            ticks += duration.getTicks();
+            track.add(new MidiEvent(MidiGeneHelper.toMidiMessage(note), ticks));
+            track.add(new MidiEvent(MidiGeneHelper.noteOffMidiMessage(), 0));
+        }
+        // Because the last note is not played for some reason, we add it again as a workaround
+        this.addLastNote(this.fittestChromosome, track, ticks);
+        return sequence;
+    }
+
+
     private void evolve(Genotype genotype, int evolutions) {
-        genotype.evolve(evolutions);
+        for (int i = 0; i < evolutions; i++) {
+            this.progressBar.setValue(i);
+            genotype.evolve();
+        }
+        this.fittestChromosome = genotype.getFittestChromosome();
         this.printSolution(genotype.getFittestChromosome());
         try {
-            this.streamAsMidiDataToConnectedReceiver(genotype.getFittestChromosome());
+            this.play();
         } catch (Exception e) {
             e.printStackTrace();
         }
+//        try {
+//            this.streamAsMidiDataToConnectedReceiver(genotype.getFittestChromosome());
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
     }
 
     private void printSolution(IChromosome chromosome) {
@@ -126,7 +175,7 @@ public class MelodyGeneratorMain {
         // Because the last note is not played for some reason, we add it again as a workaround
         this.addLastNote(chromosome, track, ticks);
         this.playSequence(sequence);
-        this.writeSequenceToMidiFile(sequence);
+        this.writeSequenceToMidiFile(sequence, "c:/melodies");
     }
 
     private void playSequence(Sequence sequence) throws InvalidMidiDataException, MidiUnavailableException {
@@ -165,10 +214,10 @@ public class MelodyGeneratorMain {
         track.add(new MidiEvent(MidiGeneHelper.noteOffMidiMessage(), 0));
     }
 
-    private void writeSequenceToMidiFile(Sequence sequence) {
+    private void writeSequenceToMidiFile(Sequence sequence, String path) {
         FileOutputStream os = null;
         try {
-            os = new FileOutputStream(new File("c:/melodies/generated-melody-" + System.currentTimeMillis() + ".mid"));
+            os = new FileOutputStream(new File(path + "/generated-melody-" + System.currentTimeMillis() + ".mid"));
             MidiDataOutputStream dos = new MidiDataOutputStream(os);
             MidiFileWriter midiFileWriter = new MidiFileWriter();
             midiFileWriter.write(sequence, 0, os);

@@ -7,9 +7,6 @@ import groovy.swing.SwingBuilder
 import java.awt.BorderLayout as BL
 import java.util.Enumeration
 import nl.jamiecraane.melodygeneration.Scale
-import java.awt.FlowLayout
-import javax.swing.BoxLayout
-import java.awt.GridLayout
 import net.miginfocom.swing.MigLayout
 import nl.jamiecraane.melodygeneration.fitnessfunction.ProportionRestAndNotesStrategy
 import nl.jamiecraane.melodygeneration.fitnessfunction.RepeatingNotesStrategy
@@ -61,9 +58,12 @@ generalPanel = swing.panel(layout: new MigLayout()) {
 	numberOfNotesSpinner = spinner(model: spinnerNumberModel(minimum: 0), value: 24)
     label(text: "Number of evolutions")
 	numberOfEvolutionsField = textField(text: 250)
+    label(text: "Path to save melodies (i.e c:/melodies)")
+    melodyDir = textField("c:/melodies")
 }
 
 ScalePanel scalePanel = new ScalePanel()
+MelodyGeneratorMain generator = new MelodyGeneratorMain();
 
 def generateMelody = {
     ProportionRestAndNotesStrategy proportionRestAndNotesStrategy = new ProportionRestAndNotesStrategy();
@@ -84,10 +84,50 @@ def generateMelody = {
         fitnessFunctionBuilder.withScale(Scale.fromString(scalePanel.selectedScale)).addStrategy(new ScaleStrategy()).
                 addStrategy(proportionRestAndNotesStrategy).addStrategy(repeatingNotesStrategy).
                 addStrategy(globalPitchDistributionStrategy).addStrategy(intervalStrategy).addStrategy(parallelIntervalStrategy);
-        MelodyGeneratorMain generator = new MelodyGeneratorMain();
         MelodyFitnessFunction melodyFitnessFunction = fitnessFunctionBuilder.build();
         println melodyFitnessFunction;
+        generator.setProgressBar(myProgressBar)
         generator.generateMelody(fitnessFunctionBuilder.build(), numberOfNotesSpinner.value, Integer.valueOf(numberOfEvolutionsField.text))
+}
+
+actionPanel = swing.panel(layout: new MigLayout()) {
+    generateButton = button(text: "Generate",
+			actionPerformed: {
+                generateButton.enabled = false
+                saveButton.enabled = false
+                playButton.enabled = false
+                doOutside {
+                    generateMelody()
+
+                    doLater {
+                       saveButton.enabled = true
+                       playButton.enabled = true
+                       generateButton.enabled = true
+                    }
+                }
+         })
+    saveButton = button(text: "Save", enabled: false, actionPerformed: {
+            doOutside {
+                generator.save(melodyDir.text)
+            }
+        }
+    )
+    playButton = button(text: "Play", enabled: false, actionPerformed: {
+            saveButton.enabled = false
+            playButton.enabled = false
+            generateButton.enabled = false
+            doOutside {
+                generator.play()
+
+                doLater {
+                   saveButton.enabled = true
+                    playButton.enabled = true
+                    generateButton.enabled = true
+                }
+            }
+        }
+    )
+    myProgressBar = progressBar(minimum: 0, maximum: Integer.parseInt(numberOfEvolutionsField.text) - 1, value: 0)
 }
 
 frame = swing.frame(title:"app", size:[1100,800], windowClosing: {System.exit(0)}, layout: new MigLayout()) {	
@@ -104,13 +144,14 @@ frame = swing.frame(title:"app", size:[1100,800], windowClosing: {System.exit(0)
 	panel(border: titledBorder(title: "Duplicate notes/rests"), constraints: 'wrap') {
 		widget(duplicatesPanel);
 	}
-	panel(border: titledBorder(title: "Parallel intervals")) {
+	panel(border: titledBorder(title: "Parallel intervals", constraints: 'wrap')) {
 		widget(parallelIntervalPanel);
 	}
     panel(border: titledBorder(title: "General settings"), constraints: 'wrap') {
         widget(generalPanel);
     }
-    button(text:"generate",
-			actionPerformed: {generateMelody()})
+    panel(border: titledBorder(title: "Actions")) {
+        widget(actionPanel);
+    }
 }
 frame.show()
