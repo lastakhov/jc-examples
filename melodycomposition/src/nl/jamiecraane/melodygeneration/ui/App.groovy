@@ -15,7 +15,7 @@ import nl.jamiecraane.melodygeneration.fitnessfunction.IntervalStrategy
 import nl.jamiecraane.melodygeneration.fitnessfunction.ParallelIntervalStrategy
 import nl.jamiecraane.melodygeneration.fitnessfunction.MelodyFitnessFunctionBuilder
 import nl.jamiecraane.melodygeneration.fitnessfunction.ScaleStrategy
-import nl.jamiecraane.melodygeneration.MelodyGeneratorMain
+import nl.jamiecraane.melodygeneration.MelodyGenerator
 import nl.jamiecraane.melodygeneration.fitnessfunction.MelodyFitnessFunction
 
 def swing = new SwingBuilder()
@@ -63,7 +63,7 @@ generalPanel = swing.panel(layout: new MigLayout()) {
 }
 
 ScalePanel scalePanel = new ScalePanel()
-MelodyGeneratorMain generator = new MelodyGeneratorMain();
+MelodyGenerator generator = new MelodyGenerator();
 
 def generateMelody = {
     ProportionRestAndNotesStrategy proportionRestAndNotesStrategy = new ProportionRestAndNotesStrategy();
