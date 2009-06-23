@@ -16,8 +16,8 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 
-public class MelodyGeneratorMain {
-    private static final Logger LOG = Logger.getLogger(MelodyGeneratorMain.class);
+public class MelodyGenerator {
+    private static final Logger LOG = Logger.getLogger(MelodyGenerator.class);
     private static final int MINIMUM_OCTAVE = 4;
     private static final int MAXIMUM_OCTAVE = 7;
     private static final int NUMBER_OF_EVOLUTIONS = 250;
@@ -29,7 +29,7 @@ public class MelodyGeneratorMain {
         this.progressBar = progressBar;
     }
 
-    public MelodyGeneratorMain() {
+    public MelodyGenerator() {
     }
 
     /**
@@ -139,11 +139,6 @@ public class MelodyGeneratorMain {
         } catch (Exception e) {
             e.printStackTrace();
         }
-//        try {
-//            this.streamAsMidiDataToConnectedReceiver(genotype.getFittestChromosome());
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//        }
     }
 
     private void printSolution(IChromosome chromosome) {
@@ -182,7 +177,7 @@ public class MelodyGeneratorMain {
         Sequencer sequencer = null;
 
         try {
-            sequencer = MidiSystem.getSequencer();
+            sequencer = MidiSystem.getSequencer();            
             sequencer.open();
             sequencer.setSequence(sequence);
             sequencer.start();
@@ -235,6 +230,6 @@ public class MelodyGeneratorMain {
     }
 
     public static void main(String[] args) throws Exception {
-        new MelodyGeneratorMain().generateMelody();
+        new MelodyGenerator().generateMelody();
     }
 }
