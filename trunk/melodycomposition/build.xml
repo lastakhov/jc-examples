@@ -16,6 +16,10 @@
         </fileset>
     </path>
 
+    <taskdef name="groovyc"
+         classname="org.codehaus.groovy.ant.Groovyc"
+         classpathref="classpath"/>
+
     <target name="clean"
             description="Delete old build and dist directories">
         <delete dir="${build.home}"/>
@@ -36,11 +40,7 @@
                classpathref="classpath">
         </javac>
 
-        <copy todir="${build.home}/bin/classes">
-            <fileset dir="${src.dir}">
-                <include name="**/*.groovy"/>
-            </fileset>
-        </copy>
+        <groovyc srcdir="${src.dir}" destdir="${build.home}/bin/classes" classpath="${build.home}/bin/classes" classpathref="classpath"/>
     </target>
 
     <target name="dist" depends="clean,compile"
