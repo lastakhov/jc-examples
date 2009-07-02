@@ -1,14 +1,16 @@
 package nl.jamiecraane.melodygeneration;
 
-import nl.jamiecraane.melodygeneration.fitnessfunction.*;
+import nl.jamiecraane.melodygeneration.fitnessfunction.MelodyFitnessFunction;
+import nl.jamiecraane.melodygeneration.fitnessfunction.MelodyFitnessFunctionBuilder;
 import nl.jamiecraane.melodygeneration.util.MidiDataOutputStream;
 import nl.jamiecraane.melodygeneration.util.MidiFileWriter;
 import nl.jamiecraane.melodygeneration.util.MidiGeneHelper;
+import nl.jamiecraane.melodygeneration.plugins.*;
+import org.apache.log4j.Logger;
 import org.jgap.*;
 import org.jgap.impl.CompositeGene;
 import org.jgap.impl.DefaultConfiguration;
 import org.jgap.impl.IntegerGene;
-import org.apache.log4j.Logger;
 
 import javax.sound.midi.*;
 import javax.swing.*;

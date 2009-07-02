@@ -4,8 +4,6 @@ import nl.jamiecraane.melodygeneration.fitnessfunction.MelodyFitnessFunction;
 import nl.jamiecraane.melodygeneration.Scale;
 import nl.jamiecraane.melodygeneration.MelodyFitnessStrategy;
 
-import java.util.List;
-import java.util.ArrayList;
 import java.util.Map;
 import java.util.HashMap;
 

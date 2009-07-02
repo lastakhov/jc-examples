@@ -16,6 +16,8 @@
     <orderEntry type="library" name="JGap_dependencies" level="application" />
     <orderEntry type="library" name="miglayout" level="project" />
     <orderEntry type="library" name="Jgap" level="application" />
+    <orderEntry type="module" module-name="client" />
+    <orderEntry type="module" module-name="fitnessfunctionplugins" />
     <orderEntryProperties />
   </component>
 </module>
