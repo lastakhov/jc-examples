@@ -64,4 +64,8 @@
             </fileset>
         </zip>
     </target>
+
+    <target name="distributeClientApi" depends="clean,compile">
+                                                                                    
+    </target>
 </project>

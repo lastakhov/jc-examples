@@ -4,8 +4,6 @@ import nl.jamiecraane.melodygeneration.MelodyFitnessStrategy;
 import java.util.ArrayList;
 import java.util.List;
 
-import nl.jamiecraane.melodygeneration.MelodyFitnessStrategy;
-
 import org.apache.log4j.Logger;
 import org.jgap.FitnessFunction;
 import org.jgap.IChromosome;
