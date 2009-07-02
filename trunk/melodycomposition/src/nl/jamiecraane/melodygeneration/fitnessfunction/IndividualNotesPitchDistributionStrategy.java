@@ -1,6 +1,9 @@
 package nl.jamiecraane.melodygeneration.fitnessfunction;
 
 import org.jgap.IChromosome;
+import nl.jamiecraane.melodygeneration.AbstractMelodyFitnessStrategy;
+
+import javax.swing.*;
 
 /**
  * Strategy which takes the individual pitch distance in semitones with two consecutive notes into account.
@@ -9,7 +12,11 @@ public final class IndividualNotesPitchDistributionStrategy extends AbstractMelo
 	private double pitchAdherenceThreshold = 0.85D;
 	private int maximumPitchDifferenceForTwoConsecutiveNotes = 6;
 
-	/**
+    public IndividualNotesPitchDistributionStrategy(double pitchAdherenceThreshold) {
+        this.pitchAdherenceThreshold = pitchAdherenceThreshold;
+    }
+
+    /**
 	 * @param maximumPitchDifferenceForTwoConsecutiveNotes The maximum difference in pitch between two consecutive notes. Defailt is 6.
 	 */
 	public void setMaximumPitchDifferenceForTwoConsecutiveNotes(int maximumPitchDifferenceForTwoConsecutiveNotes) {
@@ -29,6 +36,11 @@ public final class IndividualNotesPitchDistributionStrategy extends AbstractMelo
 		// TODO Auto-generated method stub
 		return 0;
 	}
+
+    @Override
+    public void init(JPanel container) {
+        //To change body of implemented methods use File | Settings | File Templates.
+    }
 
     public String toString() {
         return "[IndividualNotesPitchDistributionStrategy[pitchAdherenceThreshold: " + this.pitchAdherenceThreshold + ", maximumPitchDifferenceForTwoConsecutiveNotes: " + this.maximumPitchDifferenceForTwoConsecutiveNotes + "]]";

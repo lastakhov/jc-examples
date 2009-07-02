@@ -1,4 +1,4 @@
-package nl.jamiecraane.melodygeneration.fitnessfunction;
+package nl.jamiecraane.melodygeneration;
 
 import nl.jamiecraane.melodygeneration.MelodyFitnessStrategy;
 import nl.jamiecraane.melodygeneration.Pitch;
@@ -6,6 +6,8 @@ import nl.jamiecraane.melodygeneration.Scale;
 
 import org.jgap.Gene;
 import org.jgap.IChromosome;
+
+import javax.swing.*;
 
 public abstract class AbstractMelodyFitnessStrategy implements MelodyFitnessStrategy {
     protected Scale scale;
@@ -20,4 +22,7 @@ public abstract class AbstractMelodyFitnessStrategy implements MelodyFitnessStra
 
     @Override
 	abstract public double calculateErrors(IChromosome melody);
+
+    @Override
+    abstract public void init(JPanel container);
 }

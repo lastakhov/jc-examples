@@ -1,13 +1,14 @@
 package nl.jamiecraane.melodygeneration.fitnessfunction;
 
-import nl.jamiecraane.melodygeneration.Pitch;
 import nl.jamiecraane.melodygeneration.Note;
+import nl.jamiecraane.melodygeneration.AbstractMelodyFitnessStrategy;
 import nl.jamiecraane.melodygeneration.util.GeneNoteFactory;
 
 import org.jgap.Gene;
 import org.jgap.IChromosome;
 import org.jgap.impl.CompositeGene;
-import org.jgap.impl.IntegerGene;
+
+import javax.swing.*;
 
 /**
  * Strategy which counts large pitch differences as errors.
@@ -55,6 +56,11 @@ public final class GlobalPitchDistributionStrategy extends AbstractMelodyFitness
 		
 		return Math.abs((melody.getGenes().length - numberOfNotesNotInPitchDistribution) - numberOfNotesThatMustBeInMaximumPitch);
 	}
+
+    @Override
+    public void init(JPanel container) {
+        //To change body of implemented methods use File | Settings | File Templates.
+    }
 
     public String toString() {
         return "[GlobalPitchDistributionStrategy[pitchAdherenceThreshold: " + this.pitchAdherenceThreshold + ", maximumPitchDifferenceInSemitones: " + this.maximumPitchDifferenceInSemitones + "]]";

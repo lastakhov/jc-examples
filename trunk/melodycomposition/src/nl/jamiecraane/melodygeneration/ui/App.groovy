@@ -131,7 +131,7 @@ actionPanel = swing.panel(layout: new MigLayout()) {
     myProgressBar = progressBar(minimum: 0, value: 0)
 }
 
-frame = swing.frame(title:"app", size:[1100,800], windowClosing: {System.exit(0)}, layout: new MigLayout()) {	
+frame = swing.frame(title:"app", size:[1100,900], windowClosing: {System.exit(0)}, layout: new MigLayout()) {	
 	widget(scalePanel, constraints: 'span 2, wrap')
 	panel(border: titledBorder(title: "Global Pitch Distribution"), constraints: 'span 2, wrap') {
 		widget(pitchDistributionPanel);

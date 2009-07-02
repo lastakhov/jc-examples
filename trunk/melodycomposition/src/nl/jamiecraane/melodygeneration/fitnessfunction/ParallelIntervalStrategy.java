@@ -6,11 +6,14 @@ import java.util.List;
 
 import nl.jamiecraane.melodygeneration.Pitch;
 import nl.jamiecraane.melodygeneration.Scale;
+import nl.jamiecraane.melodygeneration.AbstractMelodyFitnessStrategy;
 import nl.jamiecraane.melodygeneration.Scale.Interval;
 
 import org.jgap.Gene;
 import org.jgap.IChromosome;
 import org.jgap.impl.CompositeGene;
+
+import javax.swing.*;
 
 /**
  * When two notes are a certain distance apart and move the same interval at the same time in the same direction, they are called parallel intervals. 
@@ -65,7 +68,12 @@ public final class ParallelIntervalStrategy extends AbstractMelodyFitnessStrateg
 		return errors * errors;
 	}
 
-	private int calculateNumberOfParallelIntervals(List<NoteInterval> intervals) {
+    @Override
+    public void init(JPanel container) {
+        //To change body of implemented methods use File | Settings | File Templates.
+    }
+
+    private int calculateNumberOfParallelIntervals(List<NoteInterval> intervals) {
 		int numberOfParallelIntervals = 0;
 		NoteInterval[] intervalArray = intervals.toArray(new NoteInterval[intervals.size()]);
 		NoteInterval previousInterval = null;

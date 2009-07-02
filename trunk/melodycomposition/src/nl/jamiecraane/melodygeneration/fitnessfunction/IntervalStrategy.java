@@ -1,12 +1,16 @@
 package nl.jamiecraane.melodygeneration.fitnessfunction;
 
-import nl.jamiecraane.melodygeneration.Pitch;
 import nl.jamiecraane.melodygeneration.Note;
+import nl.jamiecraane.melodygeneration.AbstractMelodyFitnessStrategy;
 import nl.jamiecraane.melodygeneration.util.GeneNoteFactory;
 
 import org.jgap.Gene;
 import org.jgap.IChromosome;
 import org.jgap.impl.CompositeGene;
+
+import javax.swing.*;
+
+import net.miginfocom.swing.MigLayout;
 
 /**
  * Intervals are measured from the root note of a specific scale to the actual note.
@@ -78,9 +82,20 @@ public final class IntervalStrategy extends AbstractMelodyFitnessStrategy {
 			errors = 0.0D;
 		}
 		
-		// The interval strategy is quite importan so square the result
+		// The interval strategy is quite important so square the result
 		return errors * errors;
 	}
+
+    @Override
+    public void init(JPanel container) {
+        container.setLayout(new MigLayout());
+        container.add(new JLabel("Number of major intervals"));
+        JSpinner majorIntervalSpinner = new JSpinner(new SpinnerNumberModel(0,0,100,1));
+        container.add(majorIntervalSpinner, "wrap");
+        container.add(new JLabel("Number of perfect intervals"));
+        JSpinner perfectIntervalSpinner = new JSpinner(new SpinnerNumberModel(0,0,100,1));
+        container.add(perfectIntervalSpinner, "wrap");
+    }
 
     private boolean currentNoteAndPreviousNoteAreNotes(Note previousNote, Note currentNote) {
         return !previousNote.isRest() && !currentNote.isRest();

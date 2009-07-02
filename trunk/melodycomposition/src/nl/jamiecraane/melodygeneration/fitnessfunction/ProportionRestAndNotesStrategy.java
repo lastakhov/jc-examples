@@ -3,9 +3,11 @@ package nl.jamiecraane.melodygeneration.fitnessfunction;
 import org.jgap.Gene;
 import org.jgap.IChromosome;
 import org.jgap.impl.CompositeGene;
-import org.jgap.impl.IntegerGene;
 import nl.jamiecraane.melodygeneration.util.GeneNoteFactory;
 import nl.jamiecraane.melodygeneration.Note;
+import nl.jamiecraane.melodygeneration.AbstractMelodyFitnessStrategy;
+
+import javax.swing.*;
 
 /**
  * Strategy that calculates number proportion of rests and notes in a given melody. The higher the propertion of rests
@@ -45,6 +47,11 @@ public final class ProportionRestAndNotesStrategy extends AbstractMelodyFitnessS
 		// Multipy by 2 to make the parameter slightly more important than default
 		return Math.abs(this.maximumPercentageOfRests - percentageOfRests) * 2;
 	}
+
+    @Override
+    public void init(JPanel container) {
+        //To change body of implemented methods use File | Settings | File Templates.
+    }
 
     private double calculateProportionOfRestsComparedToNotes(IChromosome chromosome, int numberOfRests) {
         return ((double) numberOfRests / (double) chromosome.getGenes().length) * 100;

@@ -1,6 +1,9 @@
 package nl.jamiecraane.melodygeneration.fitnessfunction;
 
 import org.jgap.IChromosome;
+import nl.jamiecraane.melodygeneration.AbstractMelodyFitnessStrategy;
+
+import javax.swing.*;
 
 /**
  * Author: Jamie Craane
@@ -11,5 +14,10 @@ public class QuarterBeatAdherenceStrategy extends AbstractMelodyFitnessStrategy 
     @Override
     public double calculateErrors(IChromosome melody) {
         return 0;  //To change body of implemented methods use File | Settings | File Templates.
+    }
+
+    @Override
+    public void init(JPanel container) {
+        //To change body of implemented methods use File | Settings | File Templates.
     }
 }
