@@ -177,8 +177,9 @@ public class MelodyGenerator {
         Sequencer sequencer = null;
 
         try {
-            sequencer = MidiSystem.getSequencer();            
+            sequencer = MidiSystem.getSequencer();
             sequencer.open();
+            sequencer.getTransmitter().setReceiver(MidiSystem.getReceiver());
             sequencer.setSequence(sequence);
             sequencer.start();
             while (true) {

@@ -1,13 +1,14 @@
 package nl.jamiecraane.melodygeneration.fitnessfunction;
 
-import nl.jamiecraane.melodygeneration.Pitch;
 import nl.jamiecraane.melodygeneration.Note;
+import nl.jamiecraane.melodygeneration.AbstractMelodyFitnessStrategy;
 import nl.jamiecraane.melodygeneration.util.GeneNoteFactory;
 
 import org.jgap.Gene;
 import org.jgap.IChromosome;
 import org.jgap.impl.CompositeGene;
-import org.jgap.impl.IntegerGene;
+
+import javax.swing.*;
 
 /**
  * Strategy that counts errors when consecutive two notes of the same pitch are after each other in a given melody.
@@ -81,6 +82,11 @@ public final class RepeatingNotesStrategy extends AbstractMelodyFitnessStrategy 
 		// Multipy by 2 to make the parameter slightly more important than default
 		return errors * 2;
 	}
+
+    @Override
+    public void init(JPanel container) {
+        //To change body of implemented methods use File | Settings | File Templates.
+    }
 
     public String toString() {
         return "[RepeatingNotesStrategy[duplicateNotesThreshold: " + this.duplicateNotesThreshold + ", duplicateRestThreshold: " + this.duplicateRestThreshold + "]]";

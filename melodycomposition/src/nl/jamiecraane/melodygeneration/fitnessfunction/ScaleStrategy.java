@@ -3,11 +3,14 @@ package nl.jamiecraane.melodygeneration.fitnessfunction;
 import nl.jamiecraane.melodygeneration.Pitch;
 import nl.jamiecraane.melodygeneration.Scale;
 import nl.jamiecraane.melodygeneration.Note;
+import nl.jamiecraane.melodygeneration.AbstractMelodyFitnessStrategy;
 import nl.jamiecraane.melodygeneration.util.GeneNoteFactory;
 
 import org.jgap.Gene;
 import org.jgap.IChromosome;
 import org.jgap.impl.CompositeGene;
+
+import javax.swing.*;
 
 /**
  * Strategy which calculates the errors based on the fact if the given notes are on the same scale. The more notes differ
@@ -33,6 +36,11 @@ public final class ScaleStrategy extends AbstractMelodyFitnessStrategy {
 		// Adhering to a given scale is quite important so square the result
 		return (errors * errors) * 10;
 	}
+
+    @Override
+    public void init(JPanel container) {
+        //To change body of implemented methods use File | Settings | File Templates.
+    }
 
     public String toString() {
         return "[ScaleStrategy[scale: " + this.scale + "]]";
