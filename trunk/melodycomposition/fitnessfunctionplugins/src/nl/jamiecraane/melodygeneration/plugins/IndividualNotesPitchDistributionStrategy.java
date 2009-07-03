@@ -45,4 +45,8 @@ public final class IndividualNotesPitchDistributionStrategy extends AbstractMelo
     public String toString() {
         return "[IndividualNotesPitchDistributionStrategy[pitchAdherenceThreshold: " + this.pitchAdherenceThreshold + ", maximumPitchDifferenceForTwoConsecutiveNotes: " + this.maximumPitchDifferenceForTwoConsecutiveNotes + "]]";
     }
+
+    public String getName() {
+        return "";
+    }
 }

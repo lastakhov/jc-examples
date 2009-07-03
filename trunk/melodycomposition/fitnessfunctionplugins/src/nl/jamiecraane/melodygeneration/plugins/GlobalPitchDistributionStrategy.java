@@ -87,8 +87,12 @@ public final class GlobalPitchDistributionStrategy extends AbstractMelodyFitness
     }
 
     public void configure() {
-        this.maximumPitchDifferenceInSemitones = Integer.parseInt((String) this.distributionSpinner.getValue());
+        this.maximumPitchDifferenceInSemitones = (Integer) this.distributionSpinner.getValue();
         this.pitchAdherenceThreshold = this.distributionSlider.getValue() / 100;
+    }
+
+    public String getName() {
+        return "Global pitch distribution";
     }
 
     public String toString() {

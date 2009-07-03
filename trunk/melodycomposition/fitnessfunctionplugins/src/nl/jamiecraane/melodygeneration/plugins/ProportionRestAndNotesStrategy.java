@@ -76,6 +76,10 @@ public final class ProportionRestAndNotesStrategy extends AbstractMelodyFitnessS
         this.maximumPercentageOfRests = this.noteRestSlider.getValue();
     }
 
+    public String getName() {
+        return "Proportion notes/rests";
+    }
+
     private double calculateProportionOfRestsComparedToNotes(IChromosome chromosome, int numberOfRests) {
         return ((double) numberOfRests / (double) chromosome.getGenes().length) * 100;
     }

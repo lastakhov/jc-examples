@@ -83,7 +83,11 @@ public final class ParallelIntervalStrategy extends AbstractMelodyFitnessStrateg
     }
 
     public void configure() {
-        this.numberOfParallelIntervalsThatSoundGood = Integer.parseInt((String) this.parallelIntervalSpinner.getValue());
+        this.numberOfParallelIntervalsThatSoundGood = (Integer) this.parallelIntervalSpinner.getValue();
+    }
+
+    public String getName() {
+        return "Parallel intervals";
     }
 
     private int calculateNumberOfParallelIntervals(List<NoteInterval> intervals) {

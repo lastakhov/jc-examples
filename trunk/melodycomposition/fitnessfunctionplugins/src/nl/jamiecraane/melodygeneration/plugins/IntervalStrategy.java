@@ -105,6 +105,10 @@ public final class IntervalStrategy extends AbstractMelodyFitnessStrategy {
         this.numberOfPerfectÍntervals = (Integer) this.perfectIntervalSpinner.getValue();
     }
 
+    public String getName() {
+        return "Major/Perfect intervals";
+    }
+
     private boolean currentNoteAndPreviousNoteAreNotes(Note previousNote, Note currentNote) {
         return !previousNote.isRest() && !currentNote.isRest();
     }
