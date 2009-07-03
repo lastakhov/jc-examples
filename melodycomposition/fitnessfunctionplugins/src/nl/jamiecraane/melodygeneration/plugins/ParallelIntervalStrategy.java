@@ -15,6 +15,8 @@ import org.jgap.impl.CompositeGene;
 
 import javax.swing.*;
 
+import net.miginfocom.swing.MigLayout;
+
 /**
  * When two notes are a certain distance apart and move the same interval at the same time in the same direction, they are called parallel intervals. 
  * Some parallel intervals sound good, like third and sixths. This strategy makes use of that knowledge and calculates the fitness of a melody
@@ -33,14 +35,16 @@ public final class ParallelIntervalStrategy extends AbstractMelodyFitnessStrateg
 
 	private Scale scale = Scale.C_MAJOR;
 
-	/**
+    private JSpinner parallelIntervalSpinner;
+
+    /**
 	 * Sets the number of parallel intervals that sound good the melody should contain. Default is 0.
 	 * @param numberOfParallelIntervalsThatSoundGood
 	 */
 	public void setNumberOfParallelIntervalsThatSoundGood(int numberOfParallelIntervalsThatSoundGood) {
 		this.numberOfParallelIntervalsThatSoundGood = numberOfParallelIntervalsThatSoundGood;
 	}
-	
+
 	@Override
 	public double calculateErrors(IChromosome melody) {
 		double errors = 1.0D;
@@ -70,7 +74,16 @@ public final class ParallelIntervalStrategy extends AbstractMelodyFitnessStrateg
 
     @Override
     public void init(JPanel container) {
-        //To change body of implemented methods use File | Settings | File Templates.
+        container.setLayout(new MigLayout());
+        container.add(new JLabel("Number of good sounding parallel intervals"));
+        parallelIntervalSpinner = new JSpinner(new SpinnerNumberModel(2,0,100,1));
+        container.add(parallelIntervalSpinner);
+//        label(text: "Number of good sounding parallel intervals")
+//	    parallelIntervalSpinner = spinner(model: spinnerNumberModel(minimum: 0), value: 2)
+    }
+
+    public void configure() {
+        this.numberOfParallelIntervalsThatSoundGood = Integer.parseInt((String) this.parallelIntervalSpinner.getValue());
     }
 
     private int calculateNumberOfParallelIntervals(List<NoteInterval> intervals) {

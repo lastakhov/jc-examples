@@ -3,6 +3,7 @@ package nl.jamiecraane.melodygeneration.plugin.core;
 import nl.jamiecraane.melodygeneration.MelodyFitnessStrategy;
 import nl.jamiecraane.melodygeneration.plugins.IntervalStrategy;
 import nl.jamiecraane.melodygeneration.plugins.GlobalPitchDistributionStrategy;
+import nl.jamiecraane.melodygeneration.plugins.ParallelIntervalStrategy;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,6 +22,7 @@ public class PluginDiscoverer {
 
         plugins.add(new IntervalStrategy());
         plugins.add(new GlobalPitchDistributionStrategy());
+        plugins.add(new ParallelIntervalStrategy());
 
         return plugins;
     }
