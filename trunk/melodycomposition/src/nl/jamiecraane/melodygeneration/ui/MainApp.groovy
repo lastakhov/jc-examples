@@ -1,5 +1,5 @@
 /**
- *
+ * Main application.
  */
 package nl.jamiecraane.melodygeneration.ui
 

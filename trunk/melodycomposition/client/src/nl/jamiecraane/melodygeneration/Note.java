@@ -10,8 +10,8 @@ public final class Note {
     public static final int MIN_OCTAVE = 0;
     public static final int MAX_OCTAVE = 10;
     private static final Map<Key, Note> noteCache = new HashMap<Key, Note>();
-    private Pitch pitch;
-    private int octave;
+    private final Pitch pitch;
+    private final int octave;
 
     static {
         for (int octave = MIN_OCTAVE; octave < MAX_OCTAVE; octave++) {
@@ -28,9 +28,9 @@ public final class Note {
 
     /**
      * Returns note instances based on the FlyWeight pattern, see GOF.
-     * @param pitch
-     * @param octave
-     * @return
+     * @param pitch pitch used to create the note
+     * @param octave octave used for the giuven note
+     * @return Note instance for the given pitch and octave
      */
     public static Note createNote(Pitch pitch, int octave) {
         if (octave < MIN_OCTAVE || octave > MAX_OCTAVE) {
@@ -95,8 +95,8 @@ public final class Note {
 
     public String toString() {
         StringBuilder builder = new StringBuilder();
-        builder.append("[Note: [pitch: " + this.pitch + "]");
-        builder.append(",[octave: " + this.octave + "]]");
+        builder.append("[Note: [pitch: ").append(this.pitch).append("]");
+        builder.append(",[octave: ").append(this.octave).append("]]");
         return builder.toString();
     }
 
@@ -114,11 +114,9 @@ public final class Note {
 
         Note note = (Note) o;
 
-        if (octave != note.octave) return false;
-        if (pitch != note.pitch) return false;
+        return octave == note.octave && pitch == note.pitch;
 
-        return true;
-    }
+        }
 
     public int hashCode() {
         int result;
@@ -145,11 +143,9 @@ public final class Note {
 
             Key key = (Key) o;
 
-            if (octave != key.octave) return false;
-            if (pitch != key.pitch) return false;
+            return octave == key.octave && pitch == key.pitch;
 
-            return true;
-        }
+            }
 
         public int hashCode() {
             int result;
