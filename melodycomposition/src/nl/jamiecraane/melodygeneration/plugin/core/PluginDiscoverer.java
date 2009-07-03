@@ -1,30 +1,16 @@
 package nl.jamiecraane.melodygeneration.plugin.core;
 
 import nl.jamiecraane.melodygeneration.MelodyFitnessStrategy;
-import nl.jamiecraane.melodygeneration.plugins.*;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Author: Jamie Craane
- * Date: 2-jul-2009
- * Time: 14:03:22
+ * Created by IntelliJ IDEA.
+ * User: Jamie.Craane
+ * Date: 3-jul-2009
+ * Time: 10:21:27
+ * To change this template use File | Settings | File Templates.
  */
-public class PluginDiscoverer {
-    public PluginDiscoverer() {
-    }
-
-    public List<MelodyFitnessStrategy> getAvailablePlugins() {
-        List<MelodyFitnessStrategy> plugins = new ArrayList<MelodyFitnessStrategy>();
-
-        plugins.add(new IntervalStrategy());
-        plugins.add(new GlobalPitchDistributionStrategy());
-        plugins.add(new ParallelIntervalStrategy());
-        plugins.add(new ProportionRestAndNotesStrategy());
-        plugins.add(new RepeatingNotesStrategy());
-        plugins.add(new ScaleStrategy());
-
-        return plugins;
-    }
+public interface PluginDiscoverer {
+    List<MelodyFitnessStrategy> getAvailablePlugins() ;
 }

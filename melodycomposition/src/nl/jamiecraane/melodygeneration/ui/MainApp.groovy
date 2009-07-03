@@ -11,11 +11,18 @@ import nl.jamiecraane.melodygeneration.MelodyFitnessStrategy
 import nl.jamiecraane.melodygeneration.MelodyGenerator
 import nl.jamiecraane.melodygeneration.fitnessfunction.MelodyFitnessFunction
 import nl.jamiecraane.melodygeneration.fitnessfunction.MelodyFitnessFunctionBuilder
-import nl.jamiecraane.melodygeneration.plugin.core.PluginDiscoverer
+import nl.jamiecraane.melodygeneration.plugin.core.impl.StaticPluginDiscoverer
+import nl.jamiecraane.melodygeneration.plugin.core.impl.StaticPluginDiscoverer
+import nl.jamiecraane.melodygeneration.plugin.core.impl.StaticPluginDiscoverer
+import nl.jamiecraane.melodygeneration.plugin.core.impl.DynamicPluginDiscoverer
 
 MelodyGenerator generator = new MelodyGenerator();
 
-def plugins = new PluginDiscoverer().getAvailablePlugins()
+def plugins = new StaticPluginDiscoverer().getAvailablePlugins()
+//def plugins = DynamicPluginDiscoverer.createPluginDiscoverer().getAvailablePlugins()
+plugins.each {
+    println it
+}
 def swing = new SwingBuilder()
 tabbedPluginPane = swing.tabbedPane(tabPlacement: JTabbedPane.LEFT) {
     plugins.each { MelodyFitnessStrategy plugin ->

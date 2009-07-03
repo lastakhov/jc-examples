@@ -17,7 +17,7 @@ import nl.jamiecraane.melodygeneration.fitnessfunction.MelodyFitnessFunctionBuil
 import nl.jamiecraane.melodygeneration.plugins.ScaleStrategy
 import nl.jamiecraane.melodygeneration.MelodyGenerator
 import nl.jamiecraane.melodygeneration.fitnessfunction.MelodyFitnessFunction
-import nl.jamiecraane.melodygeneration.plugin.core.PluginDiscoverer
+import nl.jamiecraane.melodygeneration.plugin.core.impl.StaticPluginDiscoverer
 import nl.jamiecraane.melodygeneration.MelodyFitnessStrategy
 
 def swing = new SwingBuilder()

@@ -83,8 +83,7 @@ public class MidiFileWriter extends javax.sound.midi.spi.MidiFileWriter {
             division = resolution & 0x7fff;
         dos.writeShort(division);
         int length = 14;
-        for (int i = 0; i < tracks.length; i++)
-            length += writeTrack(tracks[i], dos);
+        for (Track track : tracks) length += writeTrack(track, dos);
         return length;
     }
 

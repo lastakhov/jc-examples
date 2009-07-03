@@ -16,7 +16,7 @@ import org.apache.log4j.Logger;
 public final class MelodyFitnessFunctionBuilder {
     public static final Logger LOG = Logger.getLogger(MelodyFitnessFunctionBuilder.class);
     private Scale scale;
-    private Map<Class, MelodyFitnessStrategy> strategies = new HashMap<Class, MelodyFitnessStrategy>();
+    private final Map<Class, MelodyFitnessStrategy> strategies = new HashMap<Class, MelodyFitnessStrategy>();
 
     public MelodyFitnessFunctionBuilder addStrategy(MelodyFitnessStrategy melodyFitnessStrategy) {
         if (melodyFitnessStrategy == null) {

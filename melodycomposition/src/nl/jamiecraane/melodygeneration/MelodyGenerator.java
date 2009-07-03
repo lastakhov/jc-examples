@@ -1,11 +1,9 @@
 package nl.jamiecraane.melodygeneration;
 
 import nl.jamiecraane.melodygeneration.fitnessfunction.MelodyFitnessFunction;
-import nl.jamiecraane.melodygeneration.fitnessfunction.MelodyFitnessFunctionBuilder;
 import nl.jamiecraane.melodygeneration.util.MidiDataOutputStream;
 import nl.jamiecraane.melodygeneration.util.MidiFileWriter;
 import nl.jamiecraane.melodygeneration.util.MidiGeneHelper;
-import nl.jamiecraane.melodygeneration.plugins.*;
 import org.apache.log4j.Logger;
 import org.jgap.*;
 import org.jgap.impl.CompositeGene;
@@ -22,8 +20,6 @@ public class MelodyGenerator {
     private static final Logger LOG = Logger.getLogger(MelodyGenerator.class);
     private static final int MINIMUM_OCTAVE = 4;
     private static final int MAXIMUM_OCTAVE = 7;
-    private static final int NUMBER_OF_EVOLUTIONS = 250;
-    private static final int NUMBER_OF_NOTES = 24;
     private JProgressBar progressBar;
     private IChromosome fittestChromosome;
 
@@ -42,10 +38,10 @@ public class MelodyGenerator {
         this.evolve(genotype, evolutions);
     }
 
-    public void generateMelody() throws Exception {
-        Genotype genotype = this.setupGenoType();
-        this.evolve(genotype, NUMBER_OF_EVOLUTIONS);
-    }
+//    public void generateMelody() throws Exception {
+//        Genotype genotype = this.setupGenoType();
+//        this.evolve(genotype, NUMBER_OF_EVOLUTIONS);
+//    }
 
     private Genotype setupGenoType(MelodyFitnessFunction melodyFitnessFunction, int numberOfNotes) throws Exception {
         Configuration.reset();
@@ -75,26 +71,26 @@ public class MelodyGenerator {
         return Genotype.randomInitialGenotype(gaConf);
     }
 
-    private Genotype setupGenoType() throws Exception {
-        ProportionRestAndNotesStrategy proportionRestAndNotesStrategy = new ProportionRestAndNotesStrategy();
-        proportionRestAndNotesStrategy.setMaximumPercentageOfRests(6.75D);
-        RepeatingNotesStrategy repeatingNotesStrategy = new RepeatingNotesStrategy();
-        repeatingNotesStrategy.setDuplicateThreshold(2);
-        GlobalPitchDistributionStrategy globalPitchDistributionStrategy = new GlobalPitchDistributionStrategy();
-        globalPitchDistributionStrategy.setMaximumPitchDifferenceInSemitones(12);
-        globalPitchDistributionStrategy.setPitchAdherenceThreshold(0.95D);
-        IntervalStrategy intervalStrategy = new IntervalStrategy();
-        intervalStrategy.setNumberOfMajorIntervals(1);
-        intervalStrategy.setNumberOfPerfectÍntervals(1);
-        ParallelIntervalStrategy parallelIntervalStrategy = new ParallelIntervalStrategy();
-        parallelIntervalStrategy.setNumberOfParallelIntervalsThatSoundGood(2);
-
-        MelodyFitnessFunctionBuilder fitnessFunctionBuilder = new MelodyFitnessFunctionBuilder();
-        fitnessFunctionBuilder.withScale(Scale.C_MAJOR).addStrategy(new ScaleStrategy()).
-                addStrategy(proportionRestAndNotesStrategy).addStrategy(repeatingNotesStrategy).
-                addStrategy(globalPitchDistributionStrategy).addStrategy(intervalStrategy).addStrategy(parallelIntervalStrategy);
-        return this.setupGenoType(fitnessFunctionBuilder.build(), NUMBER_OF_NOTES);
-    }
+//    private Genotype setupGenoType() throws Exception {
+//        ProportionRestAndNotesStrategy proportionRestAndNotesStrategy = new ProportionRestAndNotesStrategy();
+//        proportionRestAndNotesStrategy.setMaximumPercentageOfRests(6.75D);
+//        RepeatingNotesStrategy repeatingNotesStrategy = new RepeatingNotesStrategy();
+//        repeatingNotesStrategy.setDuplicateThreshold(2);
+//        GlobalPitchDistributionStrategy globalPitchDistributionStrategy = new GlobalPitchDistributionStrategy();
+//        globalPitchDistributionStrategy.setMaximumPitchDifferenceInSemitones(12);
+//        globalPitchDistributionStrategy.setPitchAdherenceThreshold(0.95D);
+//        IntervalStrategy intervalStrategy = new IntervalStrategy();
+//        intervalStrategy.setNumberOfMajorIntervals(1);
+//        intervalStrategy.setNumberOfPerfectÍntervals(1);
+//        ParallelIntervalStrategy parallelIntervalStrategy = new ParallelIntervalStrategy();
+//        parallelIntervalStrategy.setNumberOfParallelIntervalsThatSoundGood(2);
+//
+//        MelodyFitnessFunctionBuilder fitnessFunctionBuilder = new MelodyFitnessFunctionBuilder();
+//        fitnessFunctionBuilder.withScale(Scale.C_MAJOR).addStrategy(new ScaleStrategy()).
+//                addStrategy(proportionRestAndNotesStrategy).addStrategy(repeatingNotesStrategy).
+//                addStrategy(globalPitchDistributionStrategy).addStrategy(intervalStrategy).addStrategy(parallelIntervalStrategy);
+//        return this.setupGenoType(fitnessFunctionBuilder.build(), NUMBER_OF_NOTES);
+//    }
 
     public void play() throws InvalidMidiDataException, MidiUnavailableException {
         Sequence sequence = generateMidiSequence();
@@ -156,25 +152,6 @@ public class MelodyGenerator {
         }
     }
 
-    private void streamAsMidiDataToConnectedReceiver(IChromosome chromosome) throws MidiUnavailableException, InvalidMidiDataException {
-        // Quarter note gets 4 beats
-        Sequence sequence = new Sequence(Sequence.PPQ, 4);
-        Track track = sequence.createTrack();
-
-        long ticks = 0;
-        for (Gene gene : chromosome.getGenes()) {
-            CompositeGene note = (CompositeGene) gene;
-            Duration duration = Duration.getByIndex((Integer) note.geneAt(2).getAllele());
-            ticks += duration.getTicks();
-            track.add(new MidiEvent(MidiGeneHelper.toMidiMessage(note), ticks));
-            track.add(new MidiEvent(MidiGeneHelper.noteOffMidiMessage(), 0));
-        }
-        // Because the last note is not played for some reason, we add it again as a workaround
-        this.addLastNote(chromosome, track, ticks);
-        this.playSequence(sequence);
-        this.writeSequenceToMidiFile(sequence, "c:/melodies");
-    }
-
     private void playSequence(Sequence sequence) throws InvalidMidiDataException, MidiUnavailableException {
         Sequencer sequencer = null;
 
@@ -232,7 +209,7 @@ public class MelodyGenerator {
         }
     }
 
-    public static void main(String[] args) throws Exception {
-        new MelodyGenerator().generateMelody();
-    }
+//    public static void main(String[] args) throws Exception {
+//        new MelodyGenerator().generateMelody();
+//    }
 }
