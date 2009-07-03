@@ -9,6 +9,8 @@ import org.jgap.IChromosome;
 import org.jgap.impl.CompositeGene;
 
 import javax.swing.*;
+import javax.swing.event.ChangeListener;
+import javax.swing.event.ChangeEvent;
 
 import net.miginfocom.swing.MigLayout;
 
@@ -64,19 +66,24 @@ public final class GlobalPitchDistributionStrategy extends AbstractMelodyFitness
 
     @Override
     public void init(JPanel container) {
-        // TODO Create UI
         container.setLayout(new MigLayout());
         container.add(new JLabel("Number of major intervals"));
+        final JLabel distributionLabel = new JLabel("95");
         distributionSlider = new JSlider(JSlider.HORIZONTAL, 0, 100, 95);
-        container.add(distributionSlider, "wrap");
+        distributionSlider.setPaintLabels(true);
+        distributionSlider.setMajorTickSpacing(10);
+        distributionSlider.setMinorTickSpacing(1);
+        distributionSlider.addChangeListener(new ChangeListener() {
+            public void stateChanged(ChangeEvent e) {
+                JSlider source = (JSlider) e.getSource();
+                distributionLabel.setText(String.valueOf(source.getValue()));
+            }
+        });
+        container.add(distributionSlider);
+        container.add(distributionLabel, "wrap");
         container.add(new JLabel("Number of perfect intervals"));
         distributionSpinner = new JSpinner(new SpinnerNumberModel(1,0,100,1));
-        container.add(distributionSpinner, "wrap");
-//       label(text: "% of notes in maximum ST", constraints: 'width 263')
-//	distributionSlider = slider(minimum: 0, maximum: 100, paintTicks: true, paintLabels: true, majorTickSpacing: 10, minorTickSpacing: 1, value: 95, stateChanged: {distributionLabel.text = distributionSlider.value})
-//	distributionLabel = label(text: 95, constraints:'wrap')
-//	label(text: "Maximum semitones")
-//	distributionSpinner = spinner(model: spinnerNumberModel(minimum: 0), value: 8, constraints: 'span 2')
+        container.add(distributionSpinner, "span 2");
     }
 
     public String toString() {

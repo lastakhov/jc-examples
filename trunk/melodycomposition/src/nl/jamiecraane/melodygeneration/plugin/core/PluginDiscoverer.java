@@ -2,6 +2,7 @@ package nl.jamiecraane.melodygeneration.plugin.core;
 
 import nl.jamiecraane.melodygeneration.MelodyFitnessStrategy;
 import nl.jamiecraane.melodygeneration.plugins.IntervalStrategy;
+import nl.jamiecraane.melodygeneration.plugins.GlobalPitchDistributionStrategy;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -19,6 +20,7 @@ public class PluginDiscoverer {
         List<MelodyFitnessStrategy> plugins = new ArrayList<MelodyFitnessStrategy>();
 
         plugins.add(new IntervalStrategy());
+        plugins.add(new GlobalPitchDistributionStrategy());
 
         return plugins;
     }
