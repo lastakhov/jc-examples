@@ -1,4 +1,5 @@
-<project name="ga-moving-example" default="compile" basedir=".">
+<project name="melody-plugins
+" default="compile" basedir=".">
     <property file="build.properties"/>
 
     <property name="build.home" value="${basedir}/build"/>

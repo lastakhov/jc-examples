@@ -1,4 +1,4 @@
-<project name="ga-moving-example" default="compile" basedir=".">
+<project name="melodycomposition" default="compile" basedir=".">
     <property file="build.properties"/>
 
     <property name="app.name" value="melody-composition"/>
@@ -12,6 +12,12 @@
 
     <path id="classpath">
         <fileset dir="${basedir}/../libs">
+            <include name="**/*.jar"/>
+        </fileset>
+        <fileset dir="${basedir}/client/dist">
+            <include name="**/*.jar"/>
+        </fileset>
+        <fileset dir="${basedir}/fitnessfunctionplugins/dist">
             <include name="**/*.jar"/>
         </fileset>
     </path>
@@ -63,9 +69,5 @@
                 <include name="docs/*.txt"/>
             </fileset>
         </zip>
-    </target>
-
-    <target name="distributeClientApi" depends="clean,compile">
-                                                                                    
     </target>
 </project>

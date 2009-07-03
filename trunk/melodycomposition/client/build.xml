@@ -1,4 +1,4 @@
-<project name="ga-moving-example" default="compile" basedir=".">
+<project name="melodycomposition-clientapi" default="compile" basedir=".">
     <property file="build.properties"/>
 
     <property name="build.home" value="${basedir}/build"/>
