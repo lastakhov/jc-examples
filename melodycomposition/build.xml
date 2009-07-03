@@ -92,22 +92,6 @@
             <fileset dir="${dist.home}">
                 <include name="**/*.*"/>
             </fileset>
-            <!--
-            <fileset dir="${build.home}/bin">
-                <include name="**/*.class"/>
-                <include name="**/*.groovy"/>
-            </fileset>
-            <fileset dir="${basedir}/../">
-                <include name="libs/*.jar"/>
-            </fileset>
-            <fileset dir="${basedir}">
-                <include name="src/**/*.java"/>
-                <include name="src/**/*.groovy"/>
-            </fileset>
-            <fileset dir="${basedir}">
-                <include name="docs/*.txt"/>
-            </fileset>
-            -->
         </zip>
     </target>
 </project>
