@@ -1,5 +1,4 @@
-<project name="melody-plugins
-" default="compile" basedir=".">
+<project name="melodycomposition-bundledplugins" default="compile" basedir=".">
     <property file="build.properties"/>
 
     <property name="build.home" value="${basedir}/build"/>
