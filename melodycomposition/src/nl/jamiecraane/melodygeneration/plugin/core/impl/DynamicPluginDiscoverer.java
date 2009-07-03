@@ -19,7 +19,7 @@ import org.apache.log4j.Logger;
  */
 public final class DynamicPluginDiscoverer implements PluginDiscoverer {
     private static final Logger LOG = Logger.getLogger(DynamicPluginDiscoverer.class);
-    public static final String PLUGIN_SEARCH_DIR = "./plugins";
+    public static final String PLUGIN_SEARCH_DIR = "../plugins";
     public static final String JAR_EXTENSION = ".jar";
     private final List<String> pluginClassNames = new ArrayList<String>();
     private final List<Class> plugins = new ArrayList<Class>();

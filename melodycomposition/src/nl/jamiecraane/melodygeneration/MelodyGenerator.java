@@ -38,11 +38,6 @@ public class MelodyGenerator {
         this.evolve(genotype, evolutions);
     }
 
-//    public void generateMelody() throws Exception {
-//        Genotype genotype = this.setupGenoType();
-//        this.evolve(genotype, NUMBER_OF_EVOLUTIONS);
-//    }
-
     private Genotype setupGenoType(MelodyFitnessFunction melodyFitnessFunction, int numberOfNotes) throws Exception {
         Configuration.reset();
         Configuration gaConf = new DefaultConfiguration();
@@ -70,27 +65,6 @@ public class MelodyGenerator {
 
         return Genotype.randomInitialGenotype(gaConf);
     }
-
-//    private Genotype setupGenoType() throws Exception {
-//        ProportionRestAndNotesStrategy proportionRestAndNotesStrategy = new ProportionRestAndNotesStrategy();
-//        proportionRestAndNotesStrategy.setMaximumPercentageOfRests(6.75D);
-//        RepeatingNotesStrategy repeatingNotesStrategy = new RepeatingNotesStrategy();
-//        repeatingNotesStrategy.setDuplicateThreshold(2);
-//        GlobalPitchDistributionStrategy globalPitchDistributionStrategy = new GlobalPitchDistributionStrategy();
-//        globalPitchDistributionStrategy.setMaximumPitchDifferenceInSemitones(12);
-//        globalPitchDistributionStrategy.setPitchAdherenceThreshold(0.95D);
-//        IntervalStrategy intervalStrategy = new IntervalStrategy();
-//        intervalStrategy.setNumberOfMajorIntervals(1);
-//        intervalStrategy.setNumberOfPerfectÍntervals(1);
-//        ParallelIntervalStrategy parallelIntervalStrategy = new ParallelIntervalStrategy();
-//        parallelIntervalStrategy.setNumberOfParallelIntervalsThatSoundGood(2);
-//
-//        MelodyFitnessFunctionBuilder fitnessFunctionBuilder = new MelodyFitnessFunctionBuilder();
-//        fitnessFunctionBuilder.withScale(Scale.C_MAJOR).addStrategy(new ScaleStrategy()).
-//                addStrategy(proportionRestAndNotesStrategy).addStrategy(repeatingNotesStrategy).
-//                addStrategy(globalPitchDistributionStrategy).addStrategy(intervalStrategy).addStrategy(parallelIntervalStrategy);
-//        return this.setupGenoType(fitnessFunctionBuilder.build(), NUMBER_OF_NOTES);
-//    }
 
     public void play() throws InvalidMidiDataException, MidiUnavailableException {
         Sequence sequence = generateMidiSequence();
@@ -208,8 +182,4 @@ public class MelodyGenerator {
             }
         }
     }
-
-//    public static void main(String[] args) throws Exception {
-//        new MelodyGenerator().generateMelody();
-//    }
 }

@@ -53,6 +53,17 @@
             description="Create binary distribution">
         <mkdir dir="${dist.home}"/>
 
+        <copy todir="${basedir}/../libs">
+            <fileset dir="${basedir}/client/dist">
+                <include name="**/*.jar"/>
+            </fileset>    
+        </copy>
+        <copy todir="${basedir}/../libs">
+            <fileset dir="${basedir}/fitnessfunctionplugins/dist">
+                <include name="**/*.jar"/>
+            </fileset>
+        </copy>
+
         <zip zipfile="${dist.home}/${app.name}-${app.version}.zip">
             <fileset dir="${build.home}/bin">
                 <include name="**/*.class"/>

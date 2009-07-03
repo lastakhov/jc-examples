@@ -40,7 +40,7 @@
             description="Create binary distribution">
         <mkdir dir="${dist.home}"/>
 
-        <jar jarfile="${dist.home}/${app.name}-${app.version}.jar">
+        <jar jarfile="${dist.home}/${app.name}.jar">
             <fileset dir="${build.home}/bin/classes">
                 <include name="**/*.class"/>
             </fileset>
