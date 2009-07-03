@@ -53,18 +53,46 @@
             description="Create binary distribution">
         <mkdir dir="${dist.home}"/>
 
+        <!-- Copy the dependency to the libs directory -->
         <copy todir="${basedir}/../libs">
             <fileset dir="${basedir}/client/dist">
                 <include name="**/*.jar"/>
-            </fileset>    
-        </copy>
-        <copy todir="${basedir}/../libs">
+            </fileset>
             <fileset dir="${basedir}/fitnessfunctionplugins/dist">
                 <include name="**/*.jar"/>
             </fileset>
         </copy>
 
-        <zip zipfile="${dist.home}/${app.name}-${app.version}.zip">
+        <!-- Create the application's directory structure -->
+        <copy todir="${dist.home}/${app.name}">
+              <fileset dir="${build.home}/bin">
+                <include name="**/*.class"/>
+                <include name="**/*.groovy"/>
+            </fileset>
+            <fileset dir="${basedir}/../">
+                <include name="libs/*.jar"/>
+            </fileset>
+            <fileset dir="${basedir}">
+                <include name="src/**/*.java"/>
+                <include name="src/**/*.groovy"/>
+            </fileset>
+            <fileset dir="${basedir}">
+                <include name="docs/*.txt"/>
+            </fileset>
+        </copy>
+
+        <!-- Copy the bundled plugins to the plugins directory -->
+         <copy todir="${dist.home}/${app.name}/plugins">
+             <fileset dir="${basedir}/../libs/">
+                <include name="*bundledplugins*.jar"/>
+            </fileset>
+         </copy>
+
+        <zip destfile="${dist.home}/${app.name}-${app.version}.zip" >
+            <fileset dir="${dist.home}">
+                <include name="**/*.*"/>
+            </fileset>
+            <!--
             <fileset dir="${build.home}/bin">
                 <include name="**/*.class"/>
                 <include name="**/*.groovy"/>
@@ -79,6 +107,7 @@
             <fileset dir="${basedir}">
                 <include name="docs/*.txt"/>
             </fileset>
+            -->
         </zip>
     </target>
 </project>
