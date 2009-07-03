@@ -18,8 +18,9 @@ import nl.jamiecraane.melodygeneration.plugin.core.impl.DynamicPluginDiscoverer
 
 MelodyGenerator generator = new MelodyGenerator();
 
-def plugins = new StaticPluginDiscoverer().getAvailablePlugins()
-//def plugins = DynamicPluginDiscoverer.createPluginDiscoverer().getAvailablePlugins()
+// Use the StaticPluginDiscoverer when running from within IDE
+//def plugins = new StaticPluginDiscoverer().getAvailablePlugins()
+def plugins = DynamicPluginDiscoverer.createPluginDiscoverer().getAvailablePlugins()
 plugins.each {
     println it
 }
