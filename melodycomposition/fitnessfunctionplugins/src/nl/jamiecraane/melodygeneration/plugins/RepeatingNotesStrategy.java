@@ -95,15 +95,15 @@ public final class RepeatingNotesStrategy extends AbstractMelodyFitnessStrategy 
         container.add(new JLabel("Maximum consecutive duplicate rests"));
         this.duplicateRestSpinner = new JSpinner(new SpinnerNumberModel(2, 0, null, 1));
         container.add(this.duplicateRestSpinner, "wrap");
-//        label(text: "Maximum consecutive duplicate notes")
-//	    duplicateNoteSpinner = spinner(model: spinnerNumberModel(minimum: 0), value: 2, constraints: 'wrap')
-//	    label(text: "Maximum consecutive duplicate rests")
-//	    duplicateRestSpinner = spinner(model: spinnerNumberModel(minimum: 0), value: 2)
     }
 
     public void configure() {
-        this.duplicateRestThreshold = Integer.parseInt((String) this.duplicateRestSpinner.getValue());
-        this.duplicateNotesThreshold = Integer.parseInt((String) this.duplicateNotesSpinner.getValue());
+        this.duplicateRestThreshold = (Integer) this.duplicateRestSpinner.getValue();
+        this.duplicateNotesThreshold = (Integer) this.duplicateNotesSpinner.getValue();
+    }
+
+    public String getName() {
+        return "Duplicate notes/rests";
     }
 
     public String toString() {

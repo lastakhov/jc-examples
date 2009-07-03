@@ -3,6 +3,7 @@ package nl.jamiecraane.melodygeneration.fitnessfunction;
 import nl.jamiecraane.melodygeneration.fitnessfunction.MelodyFitnessFunction;
 import nl.jamiecraane.melodygeneration.Scale;
 import nl.jamiecraane.melodygeneration.MelodyFitnessStrategy;
+import nl.jamiecraane.melodygeneration.plugins.ScaleStrategy;
 
 import java.util.Map;
 import java.util.HashMap;
@@ -22,6 +23,11 @@ public final class MelodyFitnessFunctionBuilder {
             throw new IllegalArgumentException("melodyFitnessStrategy may nog be null");
         }
 
+        if (melodyFitnessStrategy instanceof ScaleStrategy) {
+            ScaleStrategy scaleStrategy = (ScaleStrategy) melodyFitnessStrategy;
+            this.scale = Scale.fromString(scaleStrategy.getSelectedScale());
+        }
+
         if (this.strategies.put(melodyFitnessStrategy.getClass(), melodyFitnessStrategy) != null) {
             LOG.info(melodyFitnessStrategy.getClass().getName() + " already exists as a strategy. The new strategy is used in place of the old one.");            
         }
@@ -29,6 +35,7 @@ public final class MelodyFitnessFunctionBuilder {
         return this;
     }
 
+    // TODO Remove this method when App.groovy is deprecated
     public MelodyFitnessFunctionBuilder withScale(Scale scale) {
         this.scale = scale;
         return this;

@@ -23,6 +23,7 @@ public class PluginDiscoverer {
         plugins.add(new ParallelIntervalStrategy());
         plugins.add(new ProportionRestAndNotesStrategy());
         plugins.add(new RepeatingNotesStrategy());
+        plugins.add(new ScaleStrategy());
 
         return plugins;
     }

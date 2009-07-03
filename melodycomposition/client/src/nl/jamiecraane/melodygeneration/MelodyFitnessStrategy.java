@@ -38,4 +38,10 @@ public interface MelodyFitnessStrategy {
      * edited by the user.
      */
     void configure();
+
+    /**
+     * Returns the name of the strategy. This name is put on the configuration tab for this plugin.
+     * @return The name of this strategy plugin
+     */
+    String getName();
 }
