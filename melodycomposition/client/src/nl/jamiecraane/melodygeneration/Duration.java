@@ -34,8 +34,8 @@ public enum Duration {
 	
 	/**
 	 * Returns the Rest belonging to the given index. 
-	 * @param index
-	 * @return
+	 * @param index The index to return the enum value for
+	 * @return Duration for the given index
 	 */
 	public static Duration getByIndex(int index) {
 		return indexToEnumMapping.get(index);

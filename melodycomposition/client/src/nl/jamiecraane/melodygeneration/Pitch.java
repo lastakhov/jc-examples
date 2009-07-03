@@ -50,10 +50,6 @@ public enum Pitch {
 		this.noteNumber = noteNumber;
 	}
 
-    public int getNoteNumber() {
-        return this.noteNumber;
-    }
-
     public int toMidiNoteNumber(int octave) {
 		return (this.noteNumber + (12 * octave)) - 1;
 	}
@@ -62,8 +58,8 @@ public enum Pitch {
 	 * This method is needed to get from the IntegerGene allele value to a specific note. In the future a specific NoteGene
 	 * (and ScaleGene and RestGene) can be implemented.
 	 * 
-	 * @param index
-	 * @return
+	 * @param index The index to return the enum value for
+	 * @return Pitch for the given index
 	 */
 	public static Pitch getByIndex(int index) {
 		return indexToEnumMapping.get(index);

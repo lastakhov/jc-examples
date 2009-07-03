@@ -13,7 +13,7 @@ public enum Scale {
      * Helper enum for specifying the scale type used to measure the notes in a scale.
      */
     private static enum ScaleType {
-        MAJOR, MINOR, MELODIC_MINOR, HARMONIC_MINOR;
+        MAJOR, MINOR, MELODIC_MINOR, HARMONIC_MINOR
     }
 
     /**
@@ -47,8 +47,6 @@ public enum Scale {
 
     private final Pitch root;
 
-    private ScaleType scaleType;
-	
     private final List<Pitch> notesInScale = new ArrayList<Pitch>();
 
     static {
@@ -61,16 +59,15 @@ public enum Scale {
 
     private Scale(Pitch startPitch, ScaleType scaleType) {
 		this.root = startPitch;
-        this.scaleType = scaleType;
         this.notesInScale.add(startPitch);
 		Pitch currentPitch = this.root;
         int[] scalePattern = getScalePattern(scaleType);
-        for (int i = 0; i < scalePattern.length; i++) {
-			for (int semitones = 0; semitones < scalePattern[i]; semitones++) {
-				currentPitch = currentPitch.getNextSemitone();
-			}
-			this.notesInScale.add(currentPitch);
-		}
+        for (int aScalePattern : scalePattern) {
+            for (int semitones = 0; semitones < aScalePattern; semitones++) {
+                currentPitch = currentPitch.getNextSemitone();
+            }
+            this.notesInScale.add(currentPitch);
+        }
     }
 
     private static int[] getScalePattern(ScaleType scaleType) {
