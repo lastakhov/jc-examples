@@ -9,8 +9,8 @@
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="module" module-name="client" />
     <orderEntry type="library" name="miglayout" level="project" />
-    <orderEntry type="library" name="JGap_dependencies" level="application" />
-    <orderEntry type="library" name="Jgap" level="application" />
+    <orderEntry type="library" name="jgap" level="application" />
+    <orderEntry type="library" name="jgap" level="application" />
     <orderEntryProperties />
   </component>
 </module>
