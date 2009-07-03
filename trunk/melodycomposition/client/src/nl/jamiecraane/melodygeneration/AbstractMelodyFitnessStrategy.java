@@ -21,10 +21,6 @@ public abstract class AbstractMelodyFitnessStrategy implements MelodyFitnessStra
         this.scale = scale;
     }
 
-    final boolean isRest(Gene pitch) {
-		return Pitch.REST == Pitch.getByIndex((Integer) pitch.getAllele());
-	}
-
     @Override
 	abstract public double calculateErrors(IChromosome melody);
 
