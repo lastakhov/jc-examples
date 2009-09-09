@@ -7,6 +7,8 @@ import java.util.List;
 import nl.jamiecraane.melodygeneration.Pitch;
 import nl.jamiecraane.melodygeneration.Scale;
 import nl.jamiecraane.melodygeneration.AbstractMelodyFitnessStrategy;
+import nl.jamiecraane.melodygeneration.Note;
+import nl.jamiecraane.melodygeneration.util.GeneNoteFactory;
 import nl.jamiecraane.melodygeneration.Scale.Interval;
 
 import org.jgap.Gene;
@@ -53,14 +55,14 @@ public final class ParallelIntervalStrategy extends AbstractMelodyFitnessStrateg
 		List<NoteInterval> intervals = new ArrayList<NoteInterval>();
 		Pitch previousPitch = null;
 		for (Gene gene : melody.getGenes()) {
-			CompositeGene note = (CompositeGene) gene;
-			Pitch currentPitch = Pitch.getByIndex((Integer) note.geneAt(0).getAllele());
-			if (previousPitch != null) {
-				intervals.add(new NoteInterval(super.scale.getInterval(previousPitch, currentPitch), previousPitch));
-			}
+            Note note = GeneNoteFactory.fromGene((CompositeGene) gene);
+            Pitch currentPitch = note.getPitch();
+            if (previousPitch != null) {
+                intervals.add(new NoteInterval(super.scale.getInterval(previousPitch, currentPitch), previousPitch));
+            }
 
-			previousPitch = currentPitch;
-		}
+            previousPitch = currentPitch;
+        }
 
 		numberOfParallelIntervals = this.calculateNumberOfParallelIntervals(intervals);
         errors += Math.abs(this.numberOfParallelIntervalsThatSoundGood - numberOfParallelIntervals);
