@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:Application xmlns:mx="http://www.adobe.com/2006/mxml" layout="absolute">
+	<mx:Array id="dp">
+		<mx:Object name="John Smith" age="44"/>
+		<mx:Object name="Peter" age="34"/>
+		<mx:Object name="Willem" age="27"/>
+		<mx:Object name="Jan" age="40"/>
+	</mx:Array>
+	
+	<mx:Style>
+		DataGrid {
+			headerColors: #0066ff, #00ccff;
+   			rollOverColor: #cc6600;
+   			selectionColor: #cc6600;
+   			start-color: #ff6600;
+   			end-color: #ffff99;
+		}
+	</mx:Style>
+	
+	<mx:DataGrid dataProvider="{dp}">
+		<mx:columns>
+			<mx:DataGridColumn dataField="name"/>
+			<mx:DataGridColumn dataField="age"/>
+		</mx:columns>
+	</mx:DataGrid>
+</mx:Application>
