@@ -42,7 +42,7 @@ public class VaadinsamplesApplication extends Application {
                 // Remove the embedded in the mainlayout when showing the popup.
                 // The pdfreader always show on top of the other divs.
                 mainLayout.removeComponent(pdfContents);
-                displayPopup(createPdf());
+                displayPopup();
             }
         }));
         vl.addComponent(new Button("PDF in mainlayout", new Button.ClickListener() {
@@ -71,7 +71,7 @@ public class VaadinsamplesApplication extends Application {
         return resource;
     }
 
-    private void displayPopup(Resource resource) {
+    private void displayPopup() {
         Window window = new Window();
         ((VerticalLayout) window.getContent()).setSizeFull();
         window.setResizable(true);
@@ -81,6 +81,13 @@ public class VaadinsamplesApplication extends Application {
         Embedded e = new Embedded();
         e.setSizeFull();
         e.setType(Embedded.TYPE_BROWSER);
+
+        // Here we create a new StreamResource which downloads our StreamSource,
+        // which is our pdf.
+        StreamResource resource = new StreamResource(new Pdf(), "test.pdf?" + System.currentTimeMillis(), this);
+        // Set the right mime type
+        resource.setMIMEType("application/pdf");
+
         e.setSource(resource);
         window.addComponent(e);
         getMainWindow().addWindow(window);
