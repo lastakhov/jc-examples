@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.rabobank.isd.ecom.mybatis.person.Person">
+    <select id="selectPerson" parameterType="int" resultType="Person">
+      select
+        id,
+        first_name as firstName,
+        last_name as lastName
+        from Person
+        where id = #{id}
+  </select>
+
+    <select id="searchPerson" parameterType="java.util.Map" resultType="Person">
+        select
+        id,
+        first_name as firstName,
+        last_name as lastName
+        from Person
+        where 1=1
+        <if test="firstName != null">
+            and first_name like #{firstName}
+        </if>
+        <if test="lastName != null">
+            and last_name like #{lastName}
+        </if>
+    </select>
+
+    <select id="selectPersonWithAccount" parameterType="int" resultMap="personResultMap">
+      select
+        person.id as personId,
+        person.first_name as personFirstName,
+        person.last_name as personLastName,
+        account.id as account_id,
+        account.name as account_name
+        from Person person
+        join Account account on person.account_id = account.id
+        where person.id = #{id}
+    </select>
+
+    <resultMap id="personResultMap" type="Person">
+        <id property="id" column="personId"/>
+        <result property="firstName" column="personFirstName"/>
+        <result property="lastName" column="personLastName"/>
+        <association property="account" column="account_id" javaType="Account">
+            <id property="id" column="account_id"/>
+            <result property="name" column="account_name"/>
+        </association>
+    </resultMap>
+
+    <select id="personWithAddresses" parameterType="int" resultMap="personWithAddresses">
+        select
+              id,
+              first_name as firstName,
+              last_name as lastName
+         from Person
+         where id = #{id}
+    </select>
+
+    <resultMap id="personWithAddresses" type="Person">
+        <id property="id" column="id"/>
+        <result property="firstName" column="firstName"/>
+        <result property="lastName" column="lastName"/>
+        <collection property="addresses" javaType="ArrayList" column="id" ofType="Address" select="selectAddressesForPerson"/>
+    </resultMap>
+
+    <select id="selectAddressesForPerson" parameterType="int" resultType="Address">
+        select id, street from address where person_id = #{id}
+    </select>
+
+    <select id="personWithAddressesEager" parameterType="int" resultMap="joinResultMap">
+        select
+          person.id as personId,
+          person.first_name as firstName,
+          person.last_name as lastName,
+          address.id as addressId,
+          address.street as street
+        from Person person
+        join Address address on person.id = address.person_id
+        where person.id = #{id}
+    </select>
+
+    <resultMap id="joinResultMap" type="Person">
+        <id property="id" column="personId"/>
+        <result property="firstName" column="firstName"/>
+        <result property="lastName" column="lastName"/>
+        <collection property="addresses" javaType="ArrayList" ofType="Address" column="addressId">
+            <id property="id" column="addressId"/>
+            <result property="street" column="street"/>
+        </collection>
+    </resultMap>
+
+    <select id="selectPersons" resultType="Person">
+        select
+          id,
+          first_name as firstName,
+          last_name as lastName,
+          age as age
+        from Person
+    </select>
+</mapper>

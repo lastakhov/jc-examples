@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.rabobank.isd.ecom.mybatis.product.Product">
+    <select id="getProductsSingleTableHierarchy" resultMap="productResultMap">
+      select
+        id, type, title, weight
+      from
+        product
+    </select>
+
+    <select id="selectProductsMultipleTablesHierarchy" resultMap="productResultMap">
+        select
+          id, type, title, weight
+        from
+          baseproduct
+        left outer join dvd on baseproduct.id = dvd.parent_id
+        left outer join box on baseproduct.id = box.parent_id
+    </select>
+
+    <resultMap id="productResultMap" type="Product">
+        <id property="id" column="id"/>
+        <discriminator javaType="String" column="type">
+            <case value="DVD" resultMap="dvdResultMap"/>
+            <case value="BOX" resultMap="boxResultMap"/>
+        </discriminator>
+    </resultMap>
+
+    <resultMap id="dvdResultMap" type="Dvd" extends="productResultMap">
+        <result property="title" column="title"/>
+    </resultMap>
+
+    <resultMap id="boxResultMap" type="Box" extends="productResultMap">
+        <result property="weight" column="weight"/>
+    </resultMap>
+</mapper>
