@@ -47,7 +47,7 @@ public class PersonTest {
             Sql sql = Sql.newInstance("jdbc:hsqldb:mem:aname", "sa", "", "org.hsqldb.jdbcDriver");
             sql.execute("drop table " + table);
         } catch (Exception e) {
-            // Table does not exists
+            // Table does not exist.
         }
     }
 
