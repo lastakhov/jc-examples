@@ -1,0 +1,11 @@
+This project houses the source code for various kind of example projects I created. At the moment the following code samples can be found:
+
+  1. ga-moving-example. Consider a moving company which is specialized in moving boxes (with things in it) from one place to another. These boxes have varying volumes. The boxes are put in vans in which the boxes are moved to the other location. To reduce transport costs, it is crucial for the moving company to use as minimal vans as possible. Problem statement: given a number of boxes of varying volumes, what is the optimal arrangement of the boxes so that a minimal number of vans is needed? This example shows how to solve this problem with genetic algorithms and JGAP. See the readme.txt in the ga-moving-example.zip on how to run the example. See [my blog](http://jcraane.blogspot.com/2009/02/introduction-to-genetic-algorithms-with.html) for an introduction to genetic algorithms.
+  1. ga-helloworld. Example of how to evolve random characters into the String: "Hello World from a Genetic Algorithms program!". See the readme.txt in the ga-helloworld.zip on how to run the example.
+  1. ga-imagepattern. Example of how to evolve a group of random pixels (colored black and white) into a user supplied target image. See the readme.txt in the ga-imagepattern.zip on how to run the example.
+  1. melody-composition. Proof of concept of an application using genetic algorithms to compose melodies. This project is now located at http://code.google.com/p/melodycomposition/.
+  1. Datagridheadercolor (Flex). Example of how to create a different roll-over color for the header of a datagrid component than the roll-over color for the rows. See http://jcraane.blogspot.com/2009/10/flex-how-to-create-different-rollover.html for an explanation of this problem.
+  1. VaadinSamples. Vaadin project which at the moment contains a sample of how to create and display PDF's in Vaadin. The corresponding blog item can be found at http://jcraane.blogspot.com/2010/09/printing-in-vaadin.html.
+  1. MyBatisSamples. Maven project which contains several examples using MyBatis.
+
+Please be aware that all examples can change without notice so it is better to not be dependent on any of the source code in your own projects.
